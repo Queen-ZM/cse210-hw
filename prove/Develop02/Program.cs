@@ -1,9 +1,41 @@
-using System;
-
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        Journal journal = new();
+
+        while (true)
+        {
+            Console.WriteLine("1) Add New Entry");
+            Console.WriteLine("2) Display Entries");
+            Console.WriteLine("3) Save");
+            Console.WriteLine("4) Load");
+            Console.WriteLine("5) Exit");
+
+            int option = int.Parse(Console.ReadLine());
+
+            switch (option)
+            {
+                case 1:
+                    journal.AddEntry();
+                    break;
+                case 2:
+                    journal.DisplayEntryies();
+                    break;
+                case 3:
+                    journal.Save();
+                    break;
+                case 4:
+                    journal.Load();
+                    break;
+                case 5:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid input.");
+                    break;
+
+            }
+        }
     }
 }
