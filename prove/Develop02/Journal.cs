@@ -39,10 +39,7 @@ public class Journal
 
     public void Load()
     {
-        //look at the loading part
-       string filename = "Questions.txt";
-       
-       string[] lines = System.IO.File.ReadAllLines(filename);
+        string[] lines = System.IO.File.ReadAllLines(filename);
 
        foreach (string line in lines)
        {

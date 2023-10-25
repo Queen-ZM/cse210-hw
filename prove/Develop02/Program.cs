@@ -12,9 +12,7 @@ public class Program
             Console.WriteLine("4) Load");
             Console.WriteLine("5) Exit");
 
-            int option = int.Parse(Console.ReadLine());
-
-            switch (option)
+           
             {
                 case 1:
                     journal.AddEntry();
