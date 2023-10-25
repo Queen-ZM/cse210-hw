@@ -1,10 +1,15 @@
+using Microsoft.VisualBasic;
+
 public class Program
 {
     public static void Main(string[] args)
     {
+        PromptGenerator promptGenerator = new PromptGenerator();
+        promptGenerator.GetRandomPrompt();
         Journal journal = new();
 
-        while (true)
+        string option = "0";
+        do
         {
             Console.WriteLine("1) Add New Entry");
             Console.WriteLine("2) Display Entries");
@@ -13,27 +18,41 @@ public class Program
             Console.WriteLine("5) Exit");
 
            
-            {
-                case 1:
-                    journal.AddEntry();
-                    break;
-                case 2:
-                    journal.DisplayEntryies();
-                    break;
-                case 3:
-                    journal.Save();
-                    break;
-                case 4:
-                    journal.Load();
-                    break;
-                case 5:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid input.");
-                    break;
 
+            
+            option = Console.ReadLine();
+            if (option == "1")
+            {
+                string prompt = promptGenerator.GetRandomPrompt();
+                Console.WriteLine("Random Prompt");
+                Console.WriteLine(prompt);
+                Console.WriteLine("Enter your response:");
+
+                string response = Console.ReadLine();
+                journal.AddEntry(prompt, response);
+            }
+
+            if(option == "2")
+            {
+                journal.DisplayEntryies();
+            }
+
+            if(option == "3")
+            {
+                Console.WriteLine("Enter the filename to save from:");
+                string filename = Console.ReadLine();
+
+                journal.Save(filename);
+            }
+
+            if(option == "4")
+            {
+                Console.WriteLine("Enter the filename to load from: ");
+                string filename = Console.ReadLine();
+
+                journal.Load(filename);
             }
         }
+        while(option != "5");
     }
-}
+};
