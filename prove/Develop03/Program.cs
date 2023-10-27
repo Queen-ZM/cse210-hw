@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-class Program
-{
-    static void Main(string[] args)
-    {
-       Scripture s1 = new Scripture();
-       s1._firstChapter = "2 Nephi 6: Thou fool, that shall say; A Bible, we have got a Bible, and we need no more Bible. Have ye obtained a Bible save it were by the  Jews?";
 
-       Scripture s2 = new Scripture();
-       s2._secondChapter = ""
-    }
-}
+        string initialSentence = "Alma 34:32 For behold, this life is the time for men to prepare to meet God; yea, behold the day of this life is the day for men to perform their labors";
+        MemoryScriptureGame game = new MemoryScriptureGame(initialSentence);
+
+        Console.WriteLine("Original Sentence:");
+        Console.WriteLine(initialSentence);
+
+        Console.WriteLine("\nPress Enter to start the game.");
+        Console.ReadLine();
+
+        game.StartGame();
+    
 
