@@ -1,4 +1,4 @@
-// ReflectionActivity derived from Activity
+// ReflectionActivity 
 class ReflectionActivity : Activity
 {
     public ReflectionActivity() : base("Reflection", "Reflect on random questions")

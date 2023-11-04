@@ -1,4 +1,4 @@
-// BreathingActivity derived from Activity
+// BreathingActivity 
 class BreathingActivity : Activity
 {
     public BreathingActivity() : base("Breathing", "Breathe in and out")
@@ -8,6 +8,6 @@ class BreathingActivity : Activity
     protected override void ShowAnimation()
     {
         Console.WriteLine("Displaying breathing animation...");
-        // You can implement a breathing animation here
+       
     }
 }

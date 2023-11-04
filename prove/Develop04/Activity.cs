@@ -19,7 +19,7 @@ class Activity
         Console.WriteLine($"Starting {Name} activity - {Description}");
         SetDuration();
         Console.WriteLine("Get ready to begin...");
-        Thread.Sleep(3000); // Pause for 3 seconds
+        Thread.Sleep(3000); // Pause for 3 seconds/ but a person can put their own time
     }
 
     protected void SetDuration()
@@ -31,7 +31,7 @@ class Activity
     public virtual void DoActivity()
     {
         Console.WriteLine("Activity is in progress...");
-        ShowAnimation(); // Show animation while the activity is in progress
+        ShowAnimation(); // This is to hopefully show animation while the activity is in progress
         Thread.Sleep(DurationInSeconds * 1000);
     }
 
@@ -44,6 +44,6 @@ class Activity
 
     protected virtual void ShowAnimation()
     {
-        // Common animation code here
+        // Hoping to put the animation spinner here when I figure out the code
     }
 }

@@ -1,4 +1,4 @@
-// ListingActivity derived from Activity
+// ListingActivity
 class ListingActivity : Activity
 {
     public ListingActivity() : base("Listing", "List good things that have happened today")
