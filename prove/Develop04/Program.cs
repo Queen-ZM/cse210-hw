@@ -8,7 +8,6 @@ class Program
             Console.WriteLine("1. Breathing Activity");
             Console.WriteLine("2. Reflection Activity");
             Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Meditating Activity");
             Console.WriteLine("0. Exit");
             int choice = int.Parse(Console.ReadLine());
 
@@ -24,9 +23,6 @@ class Program
                     break;
                 case 3:
                     selectedActivity = new ListingActivity();
-                    break;
-                case 4:
-                    selectedActivity = new MeditatingActivity();
                     break;
                 case 0:
                     Environment.Exit(0);
@@ -44,4 +40,4 @@ class Program
             }
         }
     }
-};
+}
