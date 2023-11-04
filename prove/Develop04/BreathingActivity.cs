@@ -5,9 +5,9 @@ class BreathingActivity : Activity
     {
     }
 
-    public override void Start()
+    protected override void ShowAnimation()
     {
-        Console.WriteLine("Displaying meditation animation...");
-        // You can implement meditation animation here
+        Console.WriteLine("Displaying breathing animation...");
+        // You can implement a breathing animation here
     }
 }
