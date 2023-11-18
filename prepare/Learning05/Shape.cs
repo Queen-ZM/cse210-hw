@@ -32,3 +32,4 @@ public abstract class Shape
     // any class that inherits from Shape. Then, any class that has an abstract method
     // must also be declared to be abstract.
     public abstract double GetArea();
+}
