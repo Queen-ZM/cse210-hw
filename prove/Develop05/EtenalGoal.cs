@@ -1,11 +1,10 @@
-//Eternal goal
+// Derived class for EternalGoal
 public class EternalGoal : Goal
 {
-    public EternalGoal(string name) : base(name) { }
+    public EternalGoal(string description) : base(description) { }
 
-    // Override the base class method to make eternal goals never completed
-    public override void CompleteGoal()
+    public override void Display()
     {
-        // Do nothing for eternal goals
+        Console.WriteLine($"Eternal Goal: {description}");
     }
 }

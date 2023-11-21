@@ -1,55 +1,24 @@
-// Base class for goals
-
 using System;
 using System.Collections.Generic;
 using System.IO;
+
+// Base class for goals
 public abstract class Goal
 {
-    private string name;
-    private bool isCompleted;
-    private int points;
+    protected string description;
+    protected bool isCompleted;
 
-    public Goal(string name)
+    public Goal(string description)
     {
-        this.name = name;
+        this.description = description;
         this.isCompleted = false;
-        this.points = 0;
     }
 
-    public string Name => name;
+    public abstract void Display();
 
-    public bool IsCompleted => isCompleted;
-
-    public int Points => points;
-
-    // Method to mark the goal as completed and update points
-    public virtual void CompleteGoal()
+    public void MarkAsCompleted()
     {
-        if (!isCompleted)
-        {
-            isCompleted = true;
-            points += 10; //  points can be adjusted as needed
-        }
-    }
-
-    // Method to display the goal status
-    public virtual string DisplayStatus()
-    {
-        return isCompleted ? "[X]" : "[ ]";
-    }
-
-    // Method to save goal information to a string
-    public virtual string SaveGoal()
-    {
-        return $"{GetType().Name},{name},{isCompleted},{points}";
-    }
-
-    // Method to load goal information from a string
-    public virtual void LoadGoal(string data)
-    {
-        string[] parts = data.Split(',');
-        name = parts[1];
-        isCompleted = bool.Parse(parts[2]);
-        points = int.Parse(parts[3]);
+        isCompleted = true;
+        Console.WriteLine($"Goal '{description}' marked as completed.");
     }
 }

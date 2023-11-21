@@ -1,81 +1,191 @@
+// Program class
 class Program
 {
+    static List<Goal> goals = new List<Goal>();
+
     static void Main()
     {
-        List<Goal> goals = LoadGoals(); // Load goals from file
-
-        Console.WriteLine("Welcome to Goal Tracker!");
-
-        // Example: Displaying goal list and points
-        DisplayGoals(goals);
-
-        // Completing goals
-        Console.Write("Enter the goal index to mark as complete: ");
-        if (int.TryParse(Console.ReadLine(), out int goalIndex) && goalIndex >= 0 && goalIndex < goals.Count)
+        while (true)
         {
-            goals[goalIndex].CompleteGoal();
-        }
+            Console.WriteLine("Menu:");
+            Console.WriteLine("1. Create New Goal");
+            Console.WriteLine("2. List Goals");
+            Console.WriteLine("3. Save Goals to txt file");
+            Console.WriteLine("4. Load Goals");
+            Console.WriteLine("5. Record Event (Mark Completed)");
+            Console.WriteLine("6. Exit");
 
-        // Save updated goals to file
-        SaveGoals(goals);
+            int choice = GetIntInput("Enter your choice: ");
 
-        // Display updated goals
-        DisplayGoals(goals);
-    }
-
-    // Method to display goals
-    static void DisplayGoals(List<Goal> goals)
-    {
-        for (int i = 0; i < goals.Count; i++)
-        {
-            Console.WriteLine($"{i}. {goals[i].DisplayStatus()} {goals[i].Name} - Points: {goals[i].Points}");
-        }
-    }
-
-    // Method to save goals to a file
-    static void SaveGoals(List<Goal> goals)
-    {
-        using (StreamWriter writer = new StreamWriter("goals.txt"))
-        {
-            foreach (Goal goal in goals)
+            switch (choice)
             {
-                writer.WriteLine(goal.SaveGoal());
+                case 1:
+                    CreateNewGoal();
+                    break;
+                case 2:
+                    ListGoals();
+                    break;
+                case 3:
+                    SaveGoalsToFile();
+                    break;
+                case 4:
+                    LoadGoalsFromFile();
+                    break;
+                case 5:
+                    RecordEvent();
+                    break;
+                case 0:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
             }
         }
     }
 
-    // Method to load goals from a file
-    static List<Goal> LoadGoals()
+    static void CreateNewGoal()
     {
-        List<Goal> goals = new List<Goal>();
+        Console.WriteLine("Choose goal type:");
+        Console.WriteLine("1. Simple Goal");
+        Console.WriteLine("2. Eternal Goal");
+        Console.WriteLine("3. Checklist Goal");
 
-        if (File.Exists("goals.txt"))
+        int typeChoice = GetIntInput("Enter your choice: ");
+
+        string description = GetStringInput("Enter goal description: ");
+
+        Goal goal;
+
+        switch (typeChoice)
         {
-            using (StreamReader reader = new StreamReader("goals.txt"))
+            case 1:
+                goal = new SimpleGoal(description);
+                break;
+            case 2:
+                goal = new EternalGoal(description);
+                break;
+            case 3:
+                goal = new ChecklistGoal(description);
+                break;
+            default:
+                Console.WriteLine("Invalid choice. Creating a Simple Goal by default.");
+                goal = new SimpleGoal(description);
+                break;
+        }
+
+        goals.Add(goal);
+        Console.WriteLine("Goal created successfully.");
+    }
+
+    static void ListGoals()
+    {
+        Console.WriteLine("List of Goals:");
+        foreach (var goal in goals)
+        {
+            goal.Display();
+        }
+    }
+
+    static void SaveGoalsToFile()
+    {
+        string fileName = GetStringInput("Enter file name to save goals: ");
+
+        using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            foreach (var goal in goals)
+            {
+                //writer.WriteLine($"{goal.GetType().Name},{goal.description},{goal.isCompleted}");
+            }
+        }
+
+        Console.WriteLine("Goals saved to file successfully.");
+    }
+
+    static void LoadGoalsFromFile()
+    {
+        string fileName = GetStringInput("Enter file name to load goals from: ");
+
+        if (File.Exists(fileName))
+        {
+            goals.Clear();
+
+            using (StreamReader reader = new StreamReader(fileName))
             {
                 while (!reader.EndOfStream)
                 {
-                    string data = reader.ReadLine();
-                    string[] parts = data.Split(',');
+                    string line = reader.ReadLine();
+                    string[] parts = line.Split(',');
 
-                    switch (parts[0])
+                    if (parts.Length == 3)
                     {
-                        case "SimpleGoal":
-                            goals.Add(new SimpleGoal(parts[1]));
-                            break;
-                        case "ChecklistGoal":
-                            ChecklistGoal checklistGoal = new ChecklistGoal(parts[1]);
-                            checklistGoal.LoadGoal(data);
-                            goals.Add(checklistGoal);
-                            break;
-                        case "EternalGoal":
-                            goals.Add(new EternalGoal(parts[1]));
-                            break;
+                        string type = parts[0];
+                        string description = parts[1];
+                        bool isCompleted = bool.Parse(parts[2]);
+
+                        Goal goal;
+
+                        switch (type)
+                        {
+                            case "SimpleGoal":
+                                goal = new SimpleGoal(description);
+                                break;
+                            case "EternalGoal":
+                                goal = new EternalGoal(description);
+                                break;
+                            case "ChecklistGoal":
+                                goal = new ChecklistGoal(description);
+                                break;
+                            default:
+                                Console.WriteLine($"Invalid goal type in file: {type}. Skipping.");
+                                continue;
+                        }
+
+                        goal.MarkAsCompleted(); // Mark as completed based on the loaded value
+                        goals.Add(goal);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid format in file. Skipping.");
                     }
                 }
             }
-        }
 
-        return goals;
+            Console.WriteLine("Goals loaded from file successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File not found: {fileName}");
+        }
+    }
+
+    static void RecordEvent()
+    {
+        int index = GetIntInput("Enter the index of the goal to mark as completed: ");
+
+        if (index >= 0 && index < goals.Count)
+        {
+            goals[index].MarkAsCompleted();
+        }
+        else
+        {
+            Console.WriteLine("Invalid index. Please try again.");
+        }
+    }
+
+    static int GetIntInput(string prompt)
+    {
+        int result;
+        do
+        {
+            Console.Write(prompt);
+        } while (!int.TryParse(Console.ReadLine(), out result));
+        return result;
+    }
+
+    static string GetStringInput(string prompt)
+    {
+        Console.Write(prompt);
+        return Console.ReadLine();
     }
 }
