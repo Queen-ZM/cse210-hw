@@ -6,7 +6,7 @@ public abstract class VideoBase
     public int LengthInSeconds { get; set; }
     public List<CommentBase> Comments { get; set; } = new List<CommentBase>();
 
-    // Abstract method to get the number of comments
+    // Abstract method to getting the number of comments
     public abstract int GetNumberOfComments();
 }
 
