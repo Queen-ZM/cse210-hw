@@ -52,9 +52,3 @@ class Program
            newPerson._lastName = parts[1];
            newPerson._age = int.Parse(parts[2]);
 
-           people.Add(newPerson);
-        }
-
-        return people;
-    }
-}
