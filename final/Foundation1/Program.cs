@@ -36,6 +36,7 @@ class Program
             foreach (var comment in video.Comments)
             {
                 Console.WriteLine($"{comment.CommenterName}: {comment.CommentText}");
+                Console.WriteLine();
             }
 
            
