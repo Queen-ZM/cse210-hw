@@ -27,3 +27,4 @@ class Running : Activity
         return $"{base.GetSummary()} - Distance: {distance} miles, Speed: {GetSpeed()} mph, Pace: {GetPace()} min per mile";
     }
 }
+
